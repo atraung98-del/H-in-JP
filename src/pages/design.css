@@ -1,0 +1,105 @@
+.navbar2{
+    height:300px;
+}
+.navbar1{
+    display:flex;
+    flex-direction:row;
+    gap:300px;
+    background-color:rgb(255, 255, 255);
+    box-shadow:1px 1px 2px 2px rgb(165, 165, 165);
+    height:70px;
+}
+.navbar{
+    display:flex;
+    flex-direction:row;
+    gap:30px;
+    /* background-color:rgb(255, 255, 255); */
+    color:rgb(30, 31, 30);
+    /* box-shadow: 1px 1px 2px 2px  rgb(155, 155, 154); */
+    cursor:pointer;
+    margin-left:30px;
+}
+.navbar button{
+    border:none;
+    background:none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.navbar button:hover {
+  color: #ff2d2d;
+}
+
+.navbar .sbtn.active{
+    border-bottom:1px solid red;
+}
+.favmes{
+    display:flex;
+    flex-direction:row;
+    gap:50px;
+    
+    font-size:16px;
+    cursor:pointer;
+}
+.favmes button{
+    border:none;
+    background:none;
+}
+/* filter */
+.options{
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    margin:10px 25px;
+    
+}
+.searchbtn{
+    background-color:rgb(226, 3, 96);
+    border:none;
+    width:100px;
+    border-radius:5px;
+    color:white;
+    display:flex;
+    align-items:center;
+    
+}
+.searchbtn:hover{
+    background-color:rgb(241, 3, 102);
+}
+/* .selecttype{
+    display:flex;
+    gap:2px;
+} */
+.savesearch{
+    display:flex;
+    flex-direction:row;
+    margin-top:7px;
+}
+.sidebar{
+    width:300px;
+    box-shadow: 1px 1px 1px 1px  rgb(151, 151, 151);
+    margin-left:22px;
+    height:400px;
+}
+.propertytype{
+    margin-top:10px;
+    margin-left:15px;
+}
+.ptype{
+    display:flex;
+    flex-direction:row;
+    gap:50px;
+}
+.type{
+    margin-left:15px;
+}
+.content{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+}
+.sideandmap{
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+}
