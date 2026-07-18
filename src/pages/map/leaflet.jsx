@@ -7,8 +7,9 @@ export default function LeafletMap() {
       zoom={12}
       style={{
         height: "300px",
-        width: "100%",
-        position:"relative",
+        width: "16rem",
+        marginLeft:"40rem",
+        
       }}
     >
       <TileLayer

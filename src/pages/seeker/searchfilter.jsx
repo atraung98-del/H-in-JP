@@ -2,6 +2,8 @@ import Select from "react-select";
 import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LeafletMap from "../map/leaflet";
+import "../design.css"
+import Nav from "./navbar";
 const station=[
   { value: "tokyo", label: "🚉 Tokyo Station" },
   { value: "shinjuku", label: "🚉 Shinjuku Station" },
@@ -72,8 +74,11 @@ function Radius(){
 // radius//
 export default function Searchfilter(){
   return(
+    
     <div className="side">
+        <Nav/>
     <div className="options">
+        
                 <Selectstation/>
                 <Property/>
                 <Radius/>
@@ -108,6 +113,7 @@ export default function Searchfilter(){
                 
                </div>
                <LeafletMap/>
+               
             </div>
              
         </div>    

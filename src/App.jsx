@@ -1,9 +1,22 @@
 
 import './App.css'
-import Tenant from './pages/Seeker/Dashboard'
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+
+import Homepage from './pages/seeker/Home'
+import Searchfilter from './pages/Seeker/searchfilter'
+import Saved from './pages/seeker/saved';
 function App() {
  return(
-      <Tenant/>
+      <BrowserRouter>
+          <Routes>
+               
+
+               <Route path="/" element={<Homepage/>}/>
+               <Route path="/searchfilter" element={<Searchfilter/>}/>
+               <Route path="/saved" element={<Saved/>}/>
+          </Routes>
+      
+      </BrowserRouter>
  ) 
 }
 
