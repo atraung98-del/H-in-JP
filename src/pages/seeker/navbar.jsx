@@ -1,20 +1,20 @@
 import "../design.css";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 export default function Nav(){
     return(
         <div className="navbar2">
             <div className="navbar1">
                 <div className="navbar">
-                    <nav>
-                        <Link to="/">Home</Link>|{""}
-                        <Link to="/Searchfilter">Search filter</Link>
-                        <Link to="/Saved">Saved</Link>
-                    </nav>
+                  <nav>
+                        <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/">Home</NavLink>{""}
+                        <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/Searchfilter">Search filter</NavLink>
+                        <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/Saved">Saved</NavLink>
+                  </nav>
                 </div>
                 <div className="favmes">
                     <button>Favorites</button>
                     <button>Messages</button>
-                    
+                    <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/provider/Provider">Be a provider</NavLink>
                 </div>
             </div>
             

@@ -13,12 +13,12 @@
     position:fixed;
     width:100%;
 }
-.navbar nav {
+   .navbar nav {
     display:flex;
     flex-direction:row;
     gap:30px;
     /* background-color:rgb(255, 255, 255); */
-    color:rgb(30, 31, 30);
+    color:rgb(255, 255, 255);
     /* box-shadow: 1px 1px 2px 2px  rgb(155, 155, 154); */
     cursor:pointer;
     margin-left:30px;
@@ -26,14 +26,17 @@
     align-content: center;
     text-decoration:none;
 }
- Link{
-    border:none;
-    background:none;
-    border-bottom: 3px solid transparent;
+ .nav-link{
+    padding-top:1.3em;
     transition: all 0.3s ease;
     text-decoration: none;
+    color:rgb(230, 9, 9);
 }
-
+.active-link{
+    color:rgb(255, 255, 255);
+    text-decoration: none;
+    padding-top:1.3em;
+}
 
 .navbar .sbtn.active{
     border-bottom:1px solid red;
@@ -49,6 +52,8 @@
 .favmes button{
     border:none;
     background:none;
+    margin:0;
+    padding:0;
 }
 /* filter */
 .options{
@@ -108,4 +113,84 @@
     display:flex;
     flex-direction:row;
     gap:10px;
+}
+.Provdash nav{
+    display:flex;
+    flex-direction:column;
+    text-decoration:none;
+}
+.Provdash{
+    background-color:rgb(59, 59, 59);
+    width:10rem;
+    height:35.3em;
+    color:rgb(34, 33, 33);
+}
+.prov{
+    color: rgb(248, 244, 244);
+    height:24px;
+    text-decoration: none;
+    padding:2.5em 3em;
+    width:7em;
+    transition: all 0.3s ease;
+    
+}
+.Provider{
+    display:flex;
+    flex-direction:row;
+    gap:2em;
+}
+.navigate{
+    display:flex;
+    flex-direction:row;
+    gap:2em;
+}
+.Property-form{
+    display:grid;
+    grid-template-columns:repeat(2,300px);
+    padding:3px;
+    border-radius:5px;
+    margin-top:40px;
+    gap:8px;
+    height:450px;
+    background-color:rgb(34, 33, 33);
+}
+.form-group{
+    display:flex;
+    flex-direction:column;
+    padding:0 2px;
+}
+.form-group input,
+.form-group select{
+    height:40px;
+    border:1px solid #ddd;
+    border-radius:4px;
+    font-size:15px;
+    padding:0 5px;
+}
+.full-width{
+    grid-column:1 / 3;
+}
+.text{
+    resize:none;
+    padding:2px 5px;
+}
+.imageSession{
+    width:20rem;
+    height:300px;
+    border:1px solid white;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content:center;
+    font-size: 14px;
+    border-radius:5px;
+}
+.uploadBtn{
+    border:none;
+    width:100px;
+    height:30px;
+    background:#e32a71;
+    color:white;
+    text-align:center;
+    border-radius:5px;
 }

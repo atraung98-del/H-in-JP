@@ -16,6 +16,8 @@
     "@mui/material": "^9.2.0",
     "@mui/styled-engine-sc": "^9.1.1",
     "@react-google-maps/api": "^2.20.8",
+    "axios": "^1.18.1",
+    "express": "^5.2.1",
     "leaflet": "^1.9.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -38,5 +40,18 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "vite": "^8.1.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atraung98-del/H-in-JP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atraung98-del/H-in-JP/issues"
+  },
+  "homepage": "https://github.com/atraung98-del/H-in-JP#readme"
 }
