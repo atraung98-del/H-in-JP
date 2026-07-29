@@ -151,7 +151,7 @@
     border-radius:5px;
     margin-top:40px;
     gap:8px;
-    height:450px;
+    height:500px;
     background-color:rgb(34, 33, 33);
 }
 .form-group{
@@ -193,4 +193,31 @@
     color:white;
     text-align:center;
     border-radius:5px;
+}
+.submit{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-end;
+    gap:15px;
+    grid-column: 2/3;
+}
+.submit1{
+    width:100px;
+    height:34px;
+    background-color:rgb(50, 50, 235);
+    color:white;
+    font-weight:bold;
+    border:none;
+    text-align:center;
+    border-radius:3px;
+}
+.cancle{
+    background-color:grey;
+    color:white;
+    font-weight:bold;
+    border:none;
+    text-align:center;
+    border-radius:3px;
+    width:100px;
+    height:34px;
 }

@@ -6,6 +6,7 @@ export default function AllProperties(){
             <div className="navigate">
                 <ProviderNav/>
             <h1>All Properties</h1>
+            
             </div>
         </div>
     )

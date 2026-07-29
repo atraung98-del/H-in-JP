@@ -17,15 +17,14 @@ function App() {
                <Route path="/" element={<Homepage/>}/>
                <Route path="/searchfilter" element={<Searchfilter/>}/>
                <Route path="/saved" element={<Saved/>}/>
-               
-          </Routes>
-          <Routes>
                <Route path="/provider/Provider" element={<Provider/>}/>
                <Route path="/provider/Provider/allproperties" element={<AllProperties/>}/>
                <Route path="/provider/Provider/Uploads" element={<Uploads/>}/>
                <Route path="/provider/Provider/messages" element={<Messages/>}/>
                <Route path="/provider/Provider/settings" element={<Settings/>}/>
+               
           </Routes>
+          
       </BrowserRouter>
  ) 
 }
