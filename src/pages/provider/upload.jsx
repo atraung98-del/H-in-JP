@@ -4,12 +4,24 @@ import "../design.css"
 import BackupIcon from '@mui/icons-material/Backup';
 import axios from "axios";
 function Upload(){
+    const [images,setImages]=useState([]);
     const filesInputRef=useRef(null);
     const handleBrowseClick=()=>{
         filesInputRef.current.click();
     }
     const handleChangee=(e)=>{
-        console.log(e.target.files);
+    
+        const files=(Array.from(e.target.files));
+        const imageUrls=files.map(file=>URL.createObjectURL(file));
+        setImages(imageUrls);
+        if(files.length==files[5]){
+            return true;
+        }else if(files.length!==files[5]){
+            alert("the image is over 5 images try again")
+            return false;
+            
+        }
+        alert("image upload success")
     }
     return(
         <div>
@@ -26,7 +38,18 @@ function Upload(){
         onChange={handleChangee}
         style={{ display: "none" }}
       />
-
+      <div style={{display:"flex",gap:"4px",flexWrap:"wrap",}}>
+      {images.map((img,index)=>(
+        <img
+        key={index} 
+        src={img}
+        alt={`Preview ${index}`}
+        width="100px"
+        height="90px"
+        objectfit="cover"
+        />
+      ))}
+      </div>
     </div>
   );
 }
@@ -47,7 +70,7 @@ export default function Uploads(){
     const handlesubmit= async (e)=>{
         e.preventDefault();
         try{
-            const response= await axios.post("http://localhost:5000/properties",formData
+            const response= await axios.post("http://localhost:5000/post_property",formData
 
             )
         alert("Property saved successfully!");
@@ -152,6 +175,8 @@ export default function Uploads(){
                 </div>
                 <div>
                     <p>Images</p>
+                    
+                    
                 </div>
            </div>
            
