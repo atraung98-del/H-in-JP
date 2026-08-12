@@ -12,15 +12,13 @@ function Upload(){
     const handleChangee=(e)=>{
     
         const files=(Array.from(e.target.files));
+        
+        if(files.length>10){
+            alert("Your uploaded image are maximun 10 images! Please try again")
+            return;
+        }
         const imageUrls=files.map(file=>URL.createObjectURL(file));
         setImages(imageUrls);
-        if(files.length==files[5]){
-            return true;
-        }else if(files.length!==files[5]){
-            alert("the image is over 5 images try again")
-            return false;
-            
-        }
         alert("image upload success")
     }
     return(
@@ -38,6 +36,7 @@ function Upload(){
         onChange={handleChangee}
         style={{ display: "none" }}
       />
+      
       <div style={{display:"flex",gap:"4px",flexWrap:"wrap",}}>
       {images.map((img,index)=>(
         <img
@@ -56,6 +55,7 @@ function Upload(){
 
 export default function Uploads(){
    const [formData,setFormData]=useState({
+    
     date:"",
     title:"",
     rent:"",
@@ -70,8 +70,8 @@ export default function Uploads(){
     const handlesubmit= async (e)=>{
         e.preventDefault();
         try{
-            const response= await axios.post("http://localhost:5000/post_property",formData
-
+            const response= await axios.post("http://localhost:5000/owner",formData
+                
             )
         alert("Property saved successfully!");
         console.log(response.data)
@@ -81,7 +81,7 @@ export default function Uploads(){
 // ;
 //         alert(`you add ${date},${title},${rent},${property},${description}`)
     }catch (error){
-        console.error(error);
+        console.error(error.message);
         
     }
 }
@@ -175,7 +175,7 @@ export default function Uploads(){
                 </div>
                 <div>
                     <p>Images</p>
-                    
+                    <Upload/>
                     
                 </div>
            </div>

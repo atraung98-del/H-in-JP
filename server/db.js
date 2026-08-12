@@ -1,5 +1,5 @@
 import {Client} from "pg"
-const con=new Client({
+export const con=new Client({
     host:"localhost",
     user:"postgres",
     password:"aung123",
@@ -9,14 +9,14 @@ const con=new Client({
 
 
 
-async function getData(){
+ async function getData(){
     try{
        await con.connect();
        console.log("connected");
     //    const result= await con.query(`SELECT post_property FROM information_schema.Tables WHERE table_schema="public" `);
        console.log((await con.query(`SELECT current_database()`)).rows);
 
-       const result=await con.query(`SELECT * FROM property_owner`);
+       const result=await con.query(`SELECT * FROM owner`);
        console.log(result.rows)
     }catch(err){
         console.error(err.message)
@@ -24,4 +24,4 @@ async function getData(){
         await con.end();
     }
 }
-getData()
+export default getData;

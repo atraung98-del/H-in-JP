@@ -232,3 +232,37 @@
     display:flex;
     flex-direction:column;
 }
+.form{
+    background-color:white;
+}
+.searchBtn{
+    border:none;
+    width:100px;
+    height:40px;
+    background:#e32a71;
+    color:white;
+    text-align:center;
+    border-radius:2px;
+    margin-left:5px;
+}
+.main_div{
+    background-image: url("/ChatGPT Image Aug 12, 2026, 02_27_57 PM.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    height:350px;
+    background-size:cover;
+    position:relative;
+    
+}
+.main_div::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    border-radius: inherit;
+}
+.main_div>*{
+    position:relative;
+}
