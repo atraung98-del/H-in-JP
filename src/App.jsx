@@ -10,6 +10,7 @@ import AllProperties from './pages/provider/allproperties';
 import Uploads from './pages/provider/upload';
 import Messages from './pages/provider/messages';
 import Settings from './pages/provider/settings';
+import Signup from './pages/provider/Signup';
 function App() {
  return(
       <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
                <Route path="/" element={<Homepage/>}/>
                <Route path="/searchfilter" element={<Searchfilter/>}/>
                <Route path="/saved" element={<Saved/>}/>
+               <Route path="/provider/Signup" element={<Signup/>}/>
                <Route path="/provider/Provider" element={<Provider/>}/>
                <Route path="/provider/Provider/allproperties" element={<AllProperties/>}/>
                <Route path="/provider/Provider/Uploads" element={<Uploads/>}/>

@@ -96,6 +96,8 @@ export default function Homepage(){
             const text=await res.json();
             console.log(text.features[0].attributes)
             setProdata(text.features)
+            // setProdata(localStorage.setItem("setData",JSON.stringify(text.features)))
+           
             // setProdata(seekerdata);
 
         } catch (err) {
@@ -134,11 +136,11 @@ const filterstaton=prodata.filter((item)=>(
             
             
         }} >
-              <input type="text" placeholder="Search nearest stations" style={{outline:"5px",width:"200px",height:"30px",padding:'5px',fontSize:"18px"}}
+              <input type="text" placeholder="Search nearest stations" 
               value={search}
               
               onChange={(e)=>setSearch(e.target.value)}
-              style={{position:"relative",width:"190px",height:"35px",display:"-webkit-inline-flex"}}
+              style={{position:"relative",width:"250px",height:"35px",display:"-webkit-inline-flex",borderRadius:"5px"}}
               
             />
             <Property/>
@@ -167,7 +169,7 @@ const filterstaton=prodata.filter((item)=>(
         
     )}
     </div>
-    <div style={{marginLeft:"10px",position:"relative"}}>
+    <div style={{marginLeft:"10px",position:"absolute"}}>
         <h3>Popular areas</h3>
     <ClickableChips/>
     </div>

@@ -246,7 +246,7 @@
     margin-left:5px;
 }
 .main_div{
-    background-image: url("/ChatGPT Image Aug 12, 2026, 02_27_57 PM.png");
+    background-image: url("/tokyotower.png");
     background-repeat:no-repeat;
     background-position:center;
     height:350px;
@@ -266,3 +266,229 @@
 .main_div>*{
     position:relative;
 }
+
+/* signup_css */
+.twobtn .signupbtn{
+   background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 8px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    border:1px solid black;
+    width:200px;
+    color:black;
+}
+.twobtn .signupbtn:hover{
+    border-bottom: 3px solid #2563EB;
+
+}
+.twobtn .cabtn{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 8px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    width:200px;
+    border:1px solid black;
+    color:black;
+}
+.twobtn .cabtn:hover{
+    border-bottom:3px solid #25eb6e;
+}
+.twobtn{
+    display:flex;
+    flex-direction:row;
+    gap:280px;
+    justify-content: center;
+    
+}
+.twoopt{
+    position:absolute;
+    margin-left: 30rem;
+    background-color: rgb(255, 255, 255);
+    height:35rem;
+    width:800px;
+    padding-top:10px;
+    /* border:1px solid grey; */
+}
+.background img{
+    width:74.5rem;
+    height:35rem;
+    position:relative;
+    opacity: 50%;
+
+}
+.desi{
+    display:flex;
+    flex-direction:row;
+    gap:100px;
+}
+.option{
+    display:flex;
+    flex-direction:row;
+    gap:80px;
+    margin-top:35px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.seeker{
+    background-color: #c8f3f7;
+    height:200px;
+    width:300px;
+    border-radius:10px;
+    align-self: center;
+    text-align: center;
+    cursor:pointer;
+}
+.seeker:hover{
+    border:1px solid grey;
+}
+.seeker.active{
+    border:1px solid blue;
+}
+.checkicon{
+    margin-left:250px;
+    position: absolute;
+  margin-top:5px;
+  /* left:10px;
+  right: 14px; */
+
+  width: 28px;
+  height: 28px; 
+
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  color: transparent; /* Hide checkmark */
+  transition: all .25s ease;
+}
+.checkicon.checked{
+    background-color:#2563eb;
+    border-color:#2563eb;
+    color:white;
+}
+.provider{
+    background-color:#bfffda;
+    height:200px;
+    width:300px;
+    border-radius:10px;
+    align-self: center;
+    text-align: center;
+    cursor:pointer;
+}
+.provider:hover{
+    border:1px solid grey;
+}
+.provider.active{
+    border:1px solid blue;
+}
+.provider *{
+    pointer-events:none;
+}
+/* iconedit */
+.icon1{
+     width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #48D9F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+    margin-top:12px;
+}
+.icon2{
+     width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #48f891;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    margin-left: 40%;
+    margin-top:12px;
+}
+.divider{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:20px 0;
+}
+
+.line{
+    flex:1;
+    height:1px;
+    background:#E5E7EB;
+}
+
+.divider span{
+    color:#888;
+    font-size:14px;
+}
+.gbtn1,.gbtn2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding:10px 20px;
+    gap:10px;
+    font-size:14px;
+    white-space: nowrap;
+    background-color:white;
+    border-radius: 10px;
+    border:1px solid rgb(163, 161, 161);
+    transition: all 0.2s ease-in;
+    width:310px;
+    color:black;
+}
+.gbtn1:hover{
+    background-color:#e30404;
+    border:none;
+    color:white;
+}
+.gbtn2:hover{
+    background-color:#1877F2;
+    border:none;
+    color:white;
+}
+/* otheropt */
+.otheropt{
+    display:flex;
+    flex-direction: row;
+    gap:60px;
+    justify-content: center;
+}
+.formdata{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    width:300px;
+    margin-left:8%;
+}
+.formdata input{
+    width:300px;
+    padding:10px 20px;
+    border-radius:5px;
+}
+.signbtn{
+    width:200px;
+    height:30px;
+    background-color:#1877F2;
+    border:none;
+    color:white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+/* signup_css */
