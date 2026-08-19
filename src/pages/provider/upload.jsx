@@ -1,54 +1,64 @@
-import { useState,useRef} from "react";
+import { useState,} from "react";
 import ProviderNav from "./Dashboard"
 import "../design.css"
-import BackupIcon from '@mui/icons-material/Backup';
+// import BackupIcon from '@mui/icons-material/Backup';
 import axios from "axios";
 function Upload(){
     const [images,setImages]=useState([]);
-    const filesInputRef=useRef(null);
-    const handleBrowseClick=()=>{
-        filesInputRef.current.click();
-    }
+    // const filesInputRef=useRef(null);
+    // const handleBrowseClick=()=>{
+    //     filesInputRef.current.click();
+    // }
     const handleChangee=(e)=>{
     
         const files=(Array.from(e.target.files));
-        
+        setImages(prev => [
+            ...prev,
+            ...files
+        ]);
         if(files.length>10){
             alert("Your uploaded image are maximun 10 images! Please try again")
             return;
         }
-        const imageUrls=files.map(file=>URL.createObjectURL(file));
-        setImages(imageUrls);
-        alert("image upload success")
+     
+    }
+    function DeletePhoto(index){
+        setImages(prev=>
+            prev.filter((_,i)=>i!==index)
+        )
     }
     return(
         <div>
 
-      <button type="button" onClick={handleBrowseClick} className="uploadBtn">
+      {/* <button type="button" onClick={handleChangee} className="uploadBtn">
         Browse Files
-      </button>
+      </button> */}
 
       <input
         type="file"
-        ref={filesInputRef}
+        // ref={filesInputRef}
         accept="image/*"
         multiple
         onChange={handleChangee}
-        style={{ display: "none" }}
+        // style={{ display: "none" }}
       />
       
-      <div style={{display:"flex",gap:"4px",flexWrap:"wrap",}}>
+      <div style={{display:"flex",gap:"4px",flexWrap:"wrap",}} className="photo-grid">
       {images.map((img,index)=>(
-        <img
+       <div key={index} className="photo-item">
+         <img
         key={index} 
-        src={img}
-        alt={`Preview ${index}`}
+        src={URL.createObjectURL(img)}
+        alt={`Preview ${index+1}`}
         width="100px"
         height="90px"
         objectfit="cover"
         />
+        <button type="button" onClick={()=>DeletePhoto(index)-1}>×</button>
+        </div>
       ))}
       </div>
+
     </div>
   );
 }
@@ -159,16 +169,19 @@ export default function Uploads(){
                 <button type="submit" className="submit1" onClick={handlesubmit}>Post</button>
             </div>
            </div>
-           <div className="uploadPhoto">
+           <div>
+            <Upload/>
+           </div>
+           {/* <div className="uploadPhoto">
                 <div className="imageUpload">
                         <h5>Upload Photos</h5>
                         <div className="imageSession">
                             <BackupIcon style={{fontSize:"50px",fontWeight:"lighter",color:"#e32a71"}}/>
                             <p>Drag & drop photos here</p>
                             <p>or</p>
-                            <Upload className="uploadBtn"/>
                             
-                            {/* <button className="uploadBtn">Browse Files</button> */}
+                            
+                            <button className="uploadBtn" onClick={handleChange}>Browse Files</button>
                             <p>You can upload up tp 10 images(JPEG,PNG)</p>
                         </div>
                         
@@ -178,7 +191,7 @@ export default function Uploads(){
                     <Upload/>
                     
                 </div>
-           </div>
+           </div> */}
            
             </div>    
 

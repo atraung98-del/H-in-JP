@@ -44,9 +44,9 @@ app.get("/stations",async(req,res)=>{
 
   const data=await response.json();
   
-  console.log(data);
+  console.log(data.features[0].attributes);
   
-  res.json(data.response.station);
+  res.json(data.response.features);
  }catch(err){
   console.error(err);
   res.status(404).json({
@@ -55,5 +55,5 @@ app.get("/stations",async(req,res)=>{
  }
 });
 app.listen(5000,()=>{
-  console.log("Server running on port 5000")
+  console.log("http://localhost:5000/stations")
 })

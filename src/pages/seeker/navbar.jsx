@@ -14,7 +14,7 @@ export default function Nav(){
                 <div className="favmes">
                     <button>Favorites</button>
                     <button>Messages</button>
-                    <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/provider/Signup">Be a provider</NavLink>
+                    <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/provider/Provider">Be a provider</NavLink>
                 </div>
             </div>
             
