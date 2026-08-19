@@ -490,5 +490,81 @@
     border-radius: 5px;
 }
 
+.auth-form {
+    margin: 0 auto;
+    width: min(100%, 32rem);
+}
+
+.auth-form label,
+.auth-form input {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.auth-form label {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.auth-form input {
+    min-height: 2.75rem;
+}
+
+.profile-type-fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-type-fieldset legend {
+    color: #1f2937;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.profile-type-fieldset .option button {
+    background: #fff;
+    color: #1f2937;
+    cursor: pointer;
+    font: inherit;
+}
+
+.profile-type-fieldset .option button:focus-visible,
+.twobtn button:focus-visible,
+.signbtn:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+}
+
+.field-error,
+.form-error {
+    color: #b42318;
+    font-size: 0.875rem;
+}
+
+.form-error {
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+}
+
+.signbtn:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.prov--active {
+    background: #4b5563;
+}
+
+.provider-logout {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+}
+
 
 /* signup_css */

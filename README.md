@@ -1,4 +1,47 @@
-# React + Vite
+# H-in-JP Frontend
+
+React and Vite frontend for the room-rental platform. The Go API in the separate `startup/backend` project is the supported backend.
+
+## Project setup
+
+Run from this repository:
+
+```powershell
+npm ci
+Copy-Item .env.example .env
+npm run dev
+```
+
+The frontend normally opens at `http://localhost:5173`. The local `.env` should contain:
+
+```dotenv
+VITE_API_BASE_URL=http://localhost:8080/api
+```
+
+The Go backend must include the frontend origin in `CORS_ALLOWED_ORIGINS`.
+
+## Authentication design
+
+- Registration sends `email`, `password`, `full_name`, and `profile_type` to the Go API.
+- Registration is followed by login because registration intentionally does not create a session.
+- The access token exists only in React memory.
+- The refresh token remains in the Go API's HTTP-only cookie and is never read by JavaScript.
+- App startup uses `/auth/refresh` to restore a valid cookie-backed session.
+- Protected requests send the access token with the Bearer scheme and retry once after refresh on `401`.
+- Logout revokes the refresh token, clears the cookie, and clears React's session.
+- Homeowner screens trust only the API-provided `profile_type`.
+
+Never store either token in `localStorage` or `sessionStorage`.
+
+## Quality checks
+
+```powershell
+npm run lint
+npm run test
+npm run build
+```
+
+# Original Vite notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
