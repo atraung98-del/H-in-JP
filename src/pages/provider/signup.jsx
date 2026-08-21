@@ -5,7 +5,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import {useState} from 'react';
 import { CheckCircle } from 'lucide-react';
-
+import {useNavigate} from "react-router-dom";
 
 
 export default function Signup(){
@@ -16,11 +16,11 @@ export default function Signup(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fullname,setFullName]=useState("");
-    const [selected,setSelected]=useState(localStorage.getItem("userRole")||"");
+    const [selected,setSelected]=useState(localStorage.getItem("userRole")|| "");
     const [error, setError] = useState({});
+    const navigate=useNavigate();
 
-
-    async function Login(e) {
+    async function Register(e) {
 
         e.preventDefault();
 
@@ -30,7 +30,7 @@ export default function Signup(){
         try {
 
             const response = await fetch(
-                "http://localhost:8080/auth/register",
+                "http://localhost:8080/api/auth/register",
                 {
                     method: "POST",
 
@@ -57,7 +57,12 @@ export default function Signup(){
 
                 return;
             }
-
+           
+            if(selected==="Home_provider"){
+                navigate("/provider/Provider");
+            }else if(selected==="renter"){
+                navigate("/");
+            }
 
             console.log(
                 "Login successful",
@@ -159,7 +164,7 @@ export default function Signup(){
             </div>
             {/* form-data */}
              <div className="myform">
-            <form className="formdata" onSubmit={Login}>
+            <form className="formdata" onSubmit={Register}>
                 <input type="text" placeholder='Full Name' value={fullname} onChange={(e)=>setFullName(e.target.value)}/>
                 <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                 {error.email &&(
