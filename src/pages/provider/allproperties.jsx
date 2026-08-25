@@ -12,7 +12,7 @@ export default function AllProperties(){
 
         async function GetData(){
             try{
-                 const res=await fetch("http://localhost:5000/owner");
+                 const res=await fetch("https://suumo.jp/?msockid=0372bea5d92261a010dead33d8b56075");
                  if(!res.ok){
                     throw new Error("Failed to fetch data");
                  }
@@ -42,7 +42,7 @@ export default function AllProperties(){
                             {property.map((item)=>(
                                 <div key={item.id}>
                                 
-                                   <p>{item.date}</p>
+                                   <p>{item.name}</p>
                                    <p>{item.title}</p>
                                     <p>{item.rent}</p>
                                    <p>{item.description}</p>
