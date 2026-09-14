@@ -1,9 +1,10 @@
 import Select from "react-select";
 import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import LeafletMap from "../map/leaflet";
+// import LeafletMap from "../map/leaflet";
 import "../design.css"
 import Nav from "./navbar";
+import {useState,useEffect} from "react";
 const station=[
   { value: "tokyo", label: "🚉 Tokyo Station" },
   { value: "shinjuku", label: "🚉 Shinjuku Station" },
@@ -27,6 +28,116 @@ const station=[
   { value: "kinshicho", label: "🚉 Kinshicho Station" }
 ];
 
+// search room//
+export function SearchRoom() {
+    const [RoomData, setRoomdata] = useState([]);
+    const [load, setLoad] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        async function roomData() {
+            try {
+                const response = await fetch(
+                    "http://localhost:8080/api/rooms"
+                );
+
+                const result = await response.json();
+
+                
+                console.log("Full response:", result);
+               
+                console.log("result.data:", result.data);
+                console.log(
+                    "Is result.data Array?",
+                    Array.isArray(result.data)
+                );
+               
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Server returned ${response.status}`
+                    );
+                }
+
+                // Backend returns: { data: [...] }
+                if (Array.isArray(result.data)) {
+                    setRoomdata(result.data);
+                }
+
+                // Backend returns: [...]
+                else if (Array.isArray(result)) {
+                    setRoomdata(result);
+                }
+
+                else {
+                    console.error(
+                        "Room API did not return an array:",
+                        result
+                    );
+
+                    setRoomdata([]);
+                    setError("Room data format is incorrect.");
+                }
+
+            } catch (err) {
+                console.error("Room fetch error:", err);
+                setError("Cannot load rooms.");
+            } finally {
+                setLoad(false);
+            }
+        }
+
+        roomData();
+    }, []);
+
+    if (load) {
+        return <p>Loading rooms...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
+
+    return (
+        <div className="room-list" style={{overflowY:"scroll",height:"400px"}}>
+
+            <h3>
+                Available Rooms ({RoomData.length})
+            </h3>
+
+            {RoomData.length === 0 ? (
+                <p>No rooms available.</p>
+            ) : (
+
+                RoomData.map((room) => (
+                    <div
+                        className="room-card"
+                       
+                        key={room.id}
+                    >
+                        <div  >
+                        <h3 style={{color:"white"}}>{room.title}</h3>
+
+                        <p style={{color:"red"}}>
+                            {room.status}
+                            ¥{room.price_amount}
+                            {room.description}
+                            {room.deposit_amount}
+                            {room.avaliable_from}
+                        </p>
+                        <img src=
+                        {`http://localhost:8080${room.cover_photo?.thumb_url}`}/>
+                        
+                        </div>
+                    </div>
+                ))
+
+            )}
+
+        </div>
+    );
+}
+// ///
 function Selectstation(){
     return(
         <div style={{width:"200px",fontSize:"15px"}}>
@@ -109,13 +220,15 @@ export default function Searchfilter(){
                             <input type="checkbox"/><span>One-room</span><br></br>
                             <input type="checkbox"/>Share house
                         </form>
+                        
                 </div>
-                
+                 
                </div>
-               <LeafletMap/>
-               
+                
+              <SearchRoom/>
+            
             </div>
-             
+            {/* <LeafletMap/> */}
         </div>    
   )
 }

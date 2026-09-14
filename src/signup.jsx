@@ -1,63 +1,59 @@
 import './pages/design.css';
 import image from "/ChatGPT Image Jun 30, 2026, 10_48_18 AM.png";
-import { User,Building2, NotebookPen, } from 'lucide-react';
+import { User,Building2, } from 'lucide-react';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import {useState} from 'react';
 import { CheckCircle } from 'lucide-react';
 import {useNavigate} from "react-router-dom";
+import { useAuth } from './authcontext/AuthContext';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+
 
 
 // loginform//
 function HelperTextMisaligned() {
     const [loginEmail,setLoginEmail]=useState("");
     const [loginPassword,setLoginPassword]=useState("");
-     const [SuccessModal,setSuccessModal]=useState(false)
-     const navigate=useNavigate();
+     const [SuccessModal,setSuccessModal]=useState(false);
+     const [loginLoading,setLoginLoading]=useState(false);
+     const [loginError,setLoginError]=useState("")
+     const {login}=useAuth();
+    //  const [setSelected]=useState(localStorage.getItem("userRole")||"")
+    //  const [selected,setSelected]=useState("")
+    //  const navigate=useNavigate();
+     
     async function Login(e){
     e.preventDefault();
-    const response=await fetch("http://localhost:8080/api/auth/login",
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            credentials:"include",
-            body:JSON.stringify({
-                email:loginEmail,
-                password:loginPassword,
-            
-            })
-            
-        }
-    );
-    const data=await response.json([]);
-    console.log("login success",data)
-    if(!response.ok){
-        alert(
-            data.error?.message|| "Email or Password is incorrect"
+    setLoginLoading(true);
+    setLoginError("");
+
+    try{
+        const session=await login(
+            loginEmail,loginPassword
         );
-        return;
+        console.log("login successful",session);
+        setSuccessModal(true);
+        setTimeout(()=>{
+            if(session.user?.profile_type==="Homeowner"){
+                // navigate("provider/Provider");
+                window.location.href="provider/Provider"
+            }else if(session.user?.profile_type==="renter"){
+                // 
+                window.location.href="/Home"
+            }else {
+                // navigate("/")
+                window.location.href="/"
+            }
+        })
+    }catch(error){
+        console.message("User name or Password is incorrect! Please try again",error);
+        setLoginError("Email or Password is incorrect!")
+    }finally{
+        setLoginLoading(false);
     }
-    setSuccessModal(true);
-    setTimeout(()=>{
 
-         if(loginPassword){
-        navigate("/provider/Provider")
-    }else if(loginPassword===setLoginPassword){
-        alert("Email or Password do not match! Please try again")
-        navigate("/")
-    }        
-
-    },3500)
-    // if(loginPassword){
-    //     navigate("/Home")
-    // }else if(loginPassword===setLoginPassword){
-    //     alert("Email or Password do not match! Please try again")
-    //     navigate("/")
-    // }
 }
   return (
     <div>
@@ -83,14 +79,19 @@ function HelperTextMisaligned() {
         fullWidth
         required
     />
+    {loginLoading && (
+        <p>{loginError}</p>
+    )}
+    <button className="login-submit-btn" type="submit"
 
-    <button className="login-submit-btn" type="submit">
-        Log in
+        disabled={loginLoading}
+    >
+     {loginLoading?"Loggin in":"Log in"}
     </button>
 
-</form>
-    </Box>
-     {SuccessModal && (
+   </form>
+     </Box>
+      {SuccessModal && (
     <div className="success-overlay">
         <div className="success-modal">
 
@@ -98,7 +99,7 @@ function HelperTextMisaligned() {
                 ✓
             </div>
 
-            <h2>Log in successfully</h2>
+            <h2>Welcome back {User}</h2>
 
             <p>
                  Welcome to{" "}
@@ -135,8 +136,16 @@ export default function Signup(){
     const [createpassword,setCreatepassword]=useState('');
     const [authmode,setAuthmode]=useState("create_account");
     const [successModal,setSuccessModal]=useState(false)
-    const navigate=useNavigate();
     
+    const navigate=useNavigate();
+//     const {
+//     user,
+    
+//     loading,
+
+// }=useAuth();
+// console.log("auth user",user);
+// console.log("auth loading",loading)
     async function Register(e) {
 
         e.preventDefault();
@@ -165,7 +174,7 @@ export default function Signup(){
                         createpassword:createpassword,
                         password: password,
                         full_name:fullname,
-                        profile_type:selected
+                        profile_type:selected.toLowerCase()
                     })
                 }
             );
@@ -183,11 +192,7 @@ export default function Signup(){
            setSuccessModal(true);
            setTimeout(()=>{
 
-             if(selected==="Homeowner"){
-                navigate("/provider/Provider");
-            }else if(selected==="renter"){
-                navigate("/Home");
-            }
+             navigate("/")
              if(createpassword!==password){
                 alert("password does not match! please try again")
               return;
@@ -222,7 +227,9 @@ export default function Signup(){
         }
     }
     // usersignup//
-    
+    // login//
+   
+    // login//
 
     return (
     
@@ -344,7 +351,7 @@ export default function Signup(){
                 ✓
             </div>
 
-            <h2>Account Created!</h2>
+            <h2>You reated account as a {selected}</h2>
 
             <p>
                 Welcome to Home-in-Japan 🎉

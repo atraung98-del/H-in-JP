@@ -3,7 +3,7 @@ import './App.css'
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 // import Homepage from './pages/seeker/Home'
-import Searchfilter from './pages/Seeker/searchfilter'
+import Searchfilter from './pages/seeker/searchfilter'
 import Saved from './pages/seeker/saved';
 import Provider from './pages/provider/providerprofile';
 import AllProperties from './pages/provider/allproperties';
@@ -12,10 +12,14 @@ import Messages from './pages/provider/messages';
 import Settings from './pages/provider/settings';
 import Signup from './signup'
 import Homepage from './pages/seeker/Home';
+
 function App() {
+     
  return(
       <BrowserRouter>
+      
           <Routes>
+               
                <Route path="/" element={<Signup/>}/>
                <Route path="/Home" element={<Homepage/>}/>
                <Route path="/searchfilter" element={<Searchfilter/>}/>

@@ -94,6 +94,7 @@
 .propertytype{
     margin-top:10px;
     margin-left:15px;
+   
 }
 .ptype{
     display:flex;
@@ -124,6 +125,7 @@
     width:10rem;
     height:35.3em;
     color:rgb(34, 33, 33);
+    /* position:fixed; */
 }
 .prov{
     color: rgb(248, 244, 244);
@@ -150,6 +152,7 @@
     padding:3px;
     border-radius:5px;
     margin-top:40px;
+    
     gap:8px;
     height:500px;
     background-color:rgb(34, 33, 33);

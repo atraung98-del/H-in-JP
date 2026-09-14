@@ -1,6 +1,6 @@
 // station//
 import Select from "react-select";
-
+// import { useTheme } from "../../usetheme";
 // import InputLabel from '@mui/material/InputLabel';
 // import MenuItem from '@mui/material/MenuItem';
 // import FormControl from '@mui/material/FormControl';
@@ -29,6 +29,7 @@ import {useState,useEffect} from "react";
 
 import Nav from "./navbar";
 import ClickableChips from "./popularareas";
+import { SearchRoom } from "./searchfilter";
 
 // const images=[
 //     {id:1,src:heroimage}
@@ -55,6 +56,7 @@ export default function Homepage(){
         const [loading,setLoading]=useState(true);
         const [selectedStation,setSelectedStation]=useState("")
         const [search,setSearch]=useState("")
+        // const {theme,toggleTheme}=useTheme()
        
         // useEffect(()=>{
         //             async function MajorCity(){
@@ -128,6 +130,9 @@ const filterstaton=prodata.filter((item)=>(
         if(loading)return(<p>loading...</p>);
     return(
         <div className="main_div">
+            {/* <button onClick={toggleTheme}>
+                {theme==="light"? "🌙dark":" ☀️light"}
+            </button> */}
         <Nav/>
         <h2 style={{marginLeft:"10px"
         }}>Find Your Perfect Home <br></br>in Japan</h2>
@@ -149,7 +154,7 @@ const filterstaton=prodata.filter((item)=>(
         </div>
         <div style={{marginLeft:"10px"}}>
             {search && filterstaton.length>0 &&(
-            <div style={{overflowY:"scroll",height:"200px",width:"200px",cursor:"pointer",position:"relative",padding:"0"}}>
+            <div style={{overflowY:"auto",height:"200px",width:"200px",cursor:"pointer",position:"relative",padding:"0"}}>
                 {filterstaton.map((item)=>(
                     
                     <div key={item.attributes.FID} onChange={(e)=>item(e.target.value)} onClick={()=>{setSelectedStation(item.attributes.N02_005);
@@ -173,6 +178,8 @@ const filterstaton=prodata.filter((item)=>(
         <h3>Popular areas</h3>
     <ClickableChips/>
     </div>
+    <div style={{marginTop:"150px"}}>
+    <SearchRoom/>
         {/* <select>
             {prodata.map((station,index)=>(
                 
@@ -185,7 +192,7 @@ const filterstaton=prodata.filter((item)=>(
             ))}
         
         </select> */}
-            
+            </div>
         
         </div>
     )

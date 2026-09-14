@@ -3,6 +3,7 @@ import ProviderNav from "./Dashboard"
 import "../design.css"
 // import BackupIcon from '@mui/icons-material/Backup';
 import axios from "axios";
+import { Images } from "lucide-react";
 function Upload(){
     const [images,setImages]=useState([]);
     // const filesInputRef=useRef(null);
@@ -37,7 +38,7 @@ function Upload(){
       <input
         type="file"
         // ref={filesInputRef}
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp"
         multiple
         onChange={handleChangee}
         // style={{ display: "none" }}
@@ -54,7 +55,7 @@ function Upload(){
         height="90px"
         objectfit="cover"
         />
-        <button type="button" onClick={()=>DeletePhoto(index)-1}>×</button>
+        <button type="button" onClick={()=>DeletePhoto(index)}>×</button>
         </div>
       ))}
       </div>
@@ -62,10 +63,13 @@ function Upload(){
     </div>
   );
 }
+// post...//
 
+
+// post../
 export default function Uploads(){
    const [formData,setFormData]=useState({
-    
+    property_id:"",
     date:"",
     title:"",
     rent:"",
@@ -73,6 +77,13 @@ export default function Uploads(){
     description:"",
     floor:"",
     layout:"",
+    bet_count:"",
+    bathroom_type:"",
+    furnished:"",
+    available_from:"",
+    gender_preference:"",
+    status:"",
+
    });
    const handleChange= (e)=>{
     setFormData({...formData,[e.target.name]:e.target.value});
@@ -80,15 +91,32 @@ export default function Uploads(){
     const handlesubmit= async (e)=>{
         e.preventDefault();
         try{
-            const response= await axios.post("http://localhost:5000/owner",formData
+            const response= await axios.post("http://localhost:8080/rooms",
+                {
+        title: formData.title,
+        property_type: formData.property,
+        price: Number(formData.rent),
+        deposit: Number(formData.deposit),
+        available_from: formData.date,
+        floor: Number(formData.floor),
+        layout: formData.layout,
+        description: formData.description,
+        bed_count:formData.bedcount,
+      },
+      {
+        withCredentials: true
+      }
                 
             )
         alert("Property saved successfully!");
-        console.log(response.data)
+        console.log(response.data);
+        const room=response.data.data||response.data;
+        const roomId=room.id;
+        console.log(roomId)
         
 
 //         console.log(JSON.stringify([{date,title,rent,property,description}]))
-// ;
+// ;    
 //         alert(`you add ${date},${title},${rent},${property},${description}`)
     }catch (error){
         console.error(error.message);
@@ -151,6 +179,10 @@ export default function Uploads(){
                     <option value="3k">3K</option>
                 </select>
             </div>
+            <div className="form-group" >
+                Bedcount:
+                <input type="number" value={formData.bedcount}/>
+            </div>
             <div className="form-group full-width">
                  <label>Description</label>
 
@@ -170,7 +202,8 @@ export default function Uploads(){
             </div>
            </div>
            <div>
-            <Upload/>
+            <Upload
+            />
            </div>
            {/* <div className="uploadPhoto">
                 <div className="imageUpload">
