@@ -27,38 +27,64 @@ function HelperTextMisaligned() {
     async function Login(e){
     e.preventDefault();
     setLoginLoading(true);
-    setLoginError("");
+    setLoginError("")
 
     try{
         const session=await login(
             loginEmail,loginPassword
         );
         console.log("login successful",session);
-        setSuccessModal(true);
+        
         setTimeout(()=>{
-            if(session.user?.profile_type==="Homeowner"){
+            if(setLoginPassword!==loginPassword && session.user?.profile_type==="Homeowner"){
                 // navigate("provider/Provider");
                 window.location.href="provider/Provider"
-            }else if(session.user?.profile_type==="renter"){
+            }else if(setLoginPassword!==loginPassword && session.user?.profile_type==="renter"){
                 // 
                 window.location.href="/Home"
             }else {
                 // navigate("/")
                 window.location.href="/"
             }
-        })
+             setSuccessModal(true);
+        },1500)
     }catch(error){
-        console.message("User name or Password is incorrect! Please try again",error);
-        setLoginError("Email or Password is incorrect!")
+       console.log("LOGIN ERROR OBJECT:", error);
+        console.log("LOGIN ERROR MESSAGE:", error.message);
+        setLoginError(
+            error.message ||
+            "Email or Password is incorrect ! Please try agian"
+        );
+        setTimeout(() => {
+            setLoginError("");
+        }, 3000);
+
     }finally{
         setLoginLoading(false);
     }
+   
 
 }
   return (
-    <div>
-    <Box sx={{ display: 'flex', alignItems: 'center', '& > :not(style)': { m: 1 } }}>
-        <form className="login-form" onSubmit={Login}>
+    <div className="login-container">
+    <Box sx={{
+            width: "100%",
+            maxWidth: "420px",
+
+            display: "flex",
+            flexDirection: "column",
+
+            alignItems: "center",
+
+            margin: "0 auto"
+        }}>
+        <h2 className="login-subtitle">Welcome Back</h2>
+
+            <p className="login-subtitle">
+                Log in to your ATLandTip account
+            </p>
+
+        <form className="login-form form-motion" onSubmit={Login}>
 
     <TextField
         label="Email"
@@ -68,6 +94,21 @@ function HelperTextMisaligned() {
         helperText="Please enter email"
         fullWidth
         required
+        size="large"
+       sx={{
+        "& .MuiOutlinedInput-root": {
+            backgroundColor: "transparent",
+        },
+
+        "& .MuiInputBase-input": {
+            backgroundColor: "transparent",
+        },
+
+        "& .MuiInputBase-input:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0 100px transparent inset",
+            WebkitTextFillColor: "#fff",
+        },
+    }}
     />
 
     <TextField
@@ -78,9 +119,24 @@ function HelperTextMisaligned() {
         helperText="Please enter your registered password"
         fullWidth
         required
+        size="large"
+        sx={{
+        "& .MuiOutlinedInput-root": {
+            backgroundColor: "transparent",
+        },
+
+        "& .MuiInputBase-input": {
+            backgroundColor: "transparent",
+        },
+
+        "& .MuiInputBase-input:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0 100px transparent inset",
+            WebkitTextFillColor: "#fff",
+        },
+    }}
     />
-    {loginLoading && (
-        <p>{loginError}</p>
+    {loginError && (
+        <p className="login-error">{loginError}</p>
     )}
     <button className="login-submit-btn" type="submit"
 
@@ -189,9 +245,9 @@ export default function Signup(){
 
                 return;
             }
-           setSuccessModal(true);
+          
            setTimeout(()=>{
-
+             setSuccessModal(true);
              navigate("/")
              if(createpassword!==password){
                 alert("password does not match! please try again")
@@ -232,7 +288,7 @@ export default function Signup(){
     // login//
 
     return (
-    
+    <div className="signup-page">
     <div className="desi">
     
         <div className="background">
@@ -240,25 +296,74 @@ export default function Signup(){
        <img src={image} alt="background" />
        
         </div>
-        
+        {/* image context */}
+        <div className="background-content">
+
+        <div className="brand-logo">
+            AT<span>LandTip</span>
+        </div>
+
+        <h1>
+            Find Your Place
+            <br />
+            to Call Home
+        </h1>
+
+        <p>
+            Discover comfortable rooms and properties
+            across Japan with ATLandTip.
+        </p>
+
+        <div className="features">
+
+            <div>
+                <span>✓</span>
+                Easy property search
+            </div>
+
+            <div>
+                <span>✓</span>
+                Trusted property listings
+            </div>
+
+            <div>
+                <span>✓</span>
+                Simple rental experience
+            </div>
+
+        </div>
+
+        <div className="bottom-message">
+            Find your next home in Japan.
+        </div>
+
+    </div>
+
+        {/* image context */}
         {/* twoopt div */}
         <div className="twoopt">
             
             <div className="twobtn">
-            <button className="signupbtn" onClick={()=>setAuthmode("login")}>
+            <button className={authmode === "login" ? "signupbtn active" : "signupbtn"} onClick={()=>setAuthmode("login")}>
                 Log in
             </button>
-            <button className="cabtn" onClick={()=>setAuthmode("create_account")}>
+            <button className={authmode === "create_account" ? "cabtn active" : "cabtn"} onClick={()=>setAuthmode("create_account")}>
                 Create Account
             </button>
             </div>
             {/* option div */}
-            <div>
+            
+            {/* form-data */}
+            {authmode==="create_account" && (
+                // option//
+                <div className="form-motion">
+
+                    <div>
                 <p style={{fontFamily:"sans-serif",paddingTop:"10px",marginLeft:"60px"}}>I'm a...</p>
             </div>
         <div className="option">
             
-            <div onClick={()=>{setSelected("renter");console.log("renter")}} className={selected=="renter"?"selected":""} >
+            <div onClick={()=>{setSelected("renter");console.log("renter")}} className={selected=="renter"?"selected":""} className="renter" >
                                 {selected==="renter" && (<CheckCircle className="checkicon" size={24} fill='blue' color="white" />)}
 
                 
@@ -270,7 +375,7 @@ export default function Signup(){
                 
             </div>
             
-            <div onClick={()=>{setSelected("Homeowner");console.log("Homeowner")}} className={selected=="Homeowner"?"selected":""} >
+            <div onClick={()=>{setSelected("Homeowner");console.log("Homeowner")}} className={selected=="Homeowner"?"selected":""} className="provider">
                 
                 {selected==="Homeowner" && (<CheckCircle className="checkicon" size={24} fill='blue' color="white" />)}
               
@@ -313,8 +418,7 @@ export default function Signup(){
                  <span>or</span>
                  <div className="line"></div>
             </div>
-            {/* form-data */}
-            {authmode==="create_account" && (
+                
                 <div className="myform">
             <form className="formdata" onSubmit={Register}>
                 <input type="text" placeholder='Full Name' value={fullname} onChange={(e)=>setFullName(e.target.value)}/>
@@ -332,8 +436,9 @@ export default function Signup(){
                 )}
                 <button className="signbtn" type="submit">
                     {/* {alert(`Congradulation! You create user account the account is  ${selected},${fullname}`)} */}
-                    Sign up/in</button>
+                    Create Account</button>
             </form>
+            </div>
             </div>
             )}
             {/* form-data */}
@@ -370,6 +475,6 @@ export default function Signup(){
             
     </div>
     
-    
+    </div>
     );
 }

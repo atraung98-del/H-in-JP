@@ -8,6 +8,7 @@ import { useAuth } from "../../authcontext/AuthContext";
 
 export default function Nav(){
     const {user,logout}=useAuth();
+    console.log("current user",user)
     async function handleLogout(){
     
     try{
@@ -35,10 +36,10 @@ export default function Nav(){
                     <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/">Be a provider</NavLink>
                     <div>
                         {user && (<span style={{color:"white"}}>
-                            {user.profile?.full_name}
+                            {user.profile?.full_name || user.full_name || user.email}
                         </span>)}
                     </div>
-                    <button type="button" onClick={handleLogout} style={{backgroundColor:"rgb(219, 6, 73)",width:"100px",height:"30px",marginTop:"20px",borderRadius:"2px",border:"none"}}>Log out</button>
+                    <button type="button" onClick={handleLogout} style={{backgroundColor:"rgb(219, 6, 73)",width:"100px",height:"30px",marginTop:"20px",marginLeft:"90px",borderRadius:"2px",border:"none"}}>Log out</button>
                 </div>
             </div>
             
