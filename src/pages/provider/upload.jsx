@@ -1,7 +1,7 @@
 import { useState,} from "react";
 import ProviderNav from "./Dashboard"
 import "../design.css"
-// import BackupIcon from '@mui/icons-material/Backup';
+import BackupIcon from '@mui/icons-material/Backup';
 import axios from "axios";
 import { Images } from "lucide-react";
 function Upload(){
@@ -91,7 +91,7 @@ export default function Uploads(){
     const handlesubmit= async (e)=>{
         e.preventDefault();
         try{
-            const response= await axios.post("http://localhost:8080/rooms",
+            const response= await axios.post(`http://localhost:8080/api/properties/{propertyId}/rooms`,
                 {
         title: formData.title,
         property_type: formData.property,
@@ -125,7 +125,7 @@ export default function Uploads(){
 }
     return(
         
-        <div>
+        
             <div className="navigate">
                 <ProviderNav/>
                
@@ -205,7 +205,7 @@ export default function Uploads(){
             <Upload
             />
            </div>
-           {/* <div className="uploadPhoto">
+           <div className="uploadPhoto">
                 <div className="imageUpload">
                         <h5>Upload Photos</h5>
                         <div className="imageSession">
@@ -224,12 +224,12 @@ export default function Uploads(){
                     <Upload/>
                     
                 </div>
-           </div> */}
+           </div>
            
             </div>    
 
     
- </div>       
+ 
     )
 }
 

@@ -6,19 +6,21 @@
     display:flex;
     flex-direction:row;
     gap:300px;
-    background-color:rgb(53, 53, 53);
-    box-shadow:1px 1px 2px 2px rgb(245, 245, 245);
+    background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+
     height:70px;
-    color:white;
+    color:rgb(44, 44, 44);
     position:fixed;
     width:100%;
+    z-index: 1000;
 }
    .navbar nav {
     display:flex;
     flex-direction:row;
     gap:30px;
     /* background-color:rgb(255, 255, 255); */
-    color:rgb(255, 255, 255);
+    color:rgb(70, 67, 67);
     /* box-shadow: 1px 1px 2px 2px  rgb(155, 155, 154); */
     cursor:pointer;
     margin-left:30px;
@@ -33,7 +35,7 @@
     color:rgb(230, 9, 9);
 }
 .active-link{
-    color:rgb(255, 255, 255);
+    color:rgb(54, 53, 53);
     text-decoration: none;
     padding-top:1.3em;
 }
@@ -54,6 +56,8 @@
     background:none;
     margin:0;
     padding:0;
+    color:rgb(80, 79, 79);
+    font-weight:bold;
 }
 /* filter */
 .options{
@@ -61,6 +65,8 @@
     flex-direction:row;
     gap:10px;
     margin:10px 25px;
+    z-index: 1000;
+    
     
 }
 .searchbtn{
@@ -90,6 +96,7 @@
     box-shadow: 1px 1px 1px 1px  rgb(151, 151, 151);
     margin-left:22px;
     height:400px;
+    
 }
 .propertytype{
     margin-top:10px;
@@ -114,6 +121,7 @@
     display:flex;
     flex-direction:row;
     gap:10px;
+    
 }
 .Provdash nav{
     display:flex;
@@ -252,10 +260,10 @@
     background-image: url("/tokyotower.png");
     background-repeat:no-repeat;
     background-position:center;
-    height:350px;
+    height:380px;
     background-size:cover;
     position:relative;
-    
+    box-shadow:0px 5px 3px rgb(125, 124, 124);
 }
 .main_div::before{
     content: "";
@@ -357,10 +365,11 @@
 }
 .twoopt{
      width: 56%;
-    height:100vh;
+    height:35.3rem;
    background-color:white;
     
-
+    overflow-y: hidden;
+    overflow-x: hidden;
     position: relative;
 
     z-index: 5;
@@ -552,8 +561,9 @@
 }
 .renter{
      width: 300px;
-    height: 200px;
-
+    height: 100px;
+    display:flex;
+    flex-direction:row;
     padding: 16px;
     /* margin-left:10px; */
     box-sizing: border-box;
@@ -619,16 +629,17 @@
 }
 .provider{
     width: 300px;
-    height: 200px;
-
+    height: 100px;
+    display:flex;
+    flex-direction:row;
     padding: 16px;
-    margin-left:10px;
+    /* margin-left:10px; */
     box-sizing: border-box;
 
     border: 1px solid #e1e5ea;
     border-radius: 14px;
 
-    backgroundcolor: #fff;
+    background-color: #fff;
 
     text-align: center;
 
@@ -658,13 +669,14 @@
      width: 50px;
     height: 50px;
 
-    margin: 0 auto 8px;
+    /* margin: 0 auto 8px; */
     background-color:#85b1ea;
     border-radius: 50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top:12px;
 }
 .icon1 h3{
     margin: 0;
@@ -682,7 +694,7 @@
     justify-content: center;
     align-items: center;
     align-items: center;
-    margin-left: 40%;
+    /* margin-left: 40%; */
     margin-top:12px;
 }
 .divider{
@@ -717,6 +729,7 @@
     transition: all 0.2s ease-in;
     width:310px;
     color:rgb(106, 104, 104);
+    border:1px solid black;
 }
 .gbtn1:hover{
     background-color:#e30404;
@@ -747,7 +760,7 @@
 }
 .formdata input{
    width: 100%;
-    height: 42px;
+    height: 38px;
 
     box-sizing: border-box;
 
@@ -769,7 +782,7 @@
 }
 .myform{
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     margin: 20px auto 40px;
 }
 .formdata input:focus{
@@ -781,7 +794,7 @@
 .signbtn{
     width: 100%;
 
-    height: 50px;
+    height: 40px;
 
     margin-top: 5px;
 
@@ -793,7 +806,7 @@
 
     color: white;
 
-    font-size: 15px;
+    font-size: 14px;
 
     font-weight: 400;
 
@@ -1068,4 +1081,316 @@
     padding: 30px 20px;
 
     box-sizing: border-box;
+}
+.hs{
+    display:flex;
+    flex-direction:column;
+}
+.hs p{
+    font-size:12px;
+}
+.hs h3{
+    font-size:15px;
+}
+.room-list {
+    width: 100%;
+    height: 100%;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+    
+    overflow-y:auto;
+   
+}
+.room-list-header {
+    display: flex;
+
+    align-items: center;
+    justify-content:flex-start;
+    gap:12px;
+    /* margin-top:5rem; */
+    margin-bottom: 20px;
+}
+
+
+.room-list-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+    gap:12px;
+    margin-bottom: 20px;
+}
+
+.room-list-header h3 {
+    margin: 0;
+
+    color: #202735;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+.room-list-header span {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 18px;
+    background-color: #767575;
+    display:block;
+    width:100px;
+    text-align:center;
+    border-radius:20px;
+    margin-top:5px;
+}
+.room-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(280px, 1fr));
+
+    gap: 22px;
+}
+.room-card {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #414242;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    cursor: pointer;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12);
+}
+.room-image {
+    position: relative;
+
+    width: 100%;
+
+    height: 190px;
+
+    overflow: hidden;
+
+    background: #eef1f5;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.35s ease;
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.05);
+}
+.no-image {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #8b95a3;
+
+    font-size: 13px;
+}
+.favorite-btn {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    color: #4a5361;
+
+    font-size: 21px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.favorite-btn:hover {
+    color: #e91e63;
+
+    background: white;
+}
+.room-content {
+    padding: 17px;
+}
+
+.room-title {
+    margin: 0 0 7px;
+
+    color: #202735;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    display: -webkit-box;
+
+    
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.room-location {
+    margin: 0 0 12px;
+
+    color: #7b8492;
+
+    font-size: 13px;
+}
+.room-price {
+    margin-bottom: 13px;
+
+    color: #e91e63;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+.room-price span {
+    color: #7c8593;
+
+    font-size: 12px;
+
+    font-weight: 400;
+}
+.room-info {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-bottom: 12px;
+}
+
+.room-info span {
+    padding: 5px 9px;
+
+    border-radius: 6px;
+
+    background: #f3f6f9;
+
+    color: #5d6775;
+
+    font-size: 11px;
+}
+.room-description {
+    margin: 0 0 15px;
+
+    color: #7b8492;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    display: -webkit-box;
+
+    
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+.view-room-btn {
+    width: 100%;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #1976d2;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.view-room-btn:hover {
+    background: #1565c0;
+
+    transform: translateY(-1px);
+}
+
+.view-room-btn span {
+    font-size: 17px;
+}
+.loadingpage{
+    margin:100rem 100rem;
+}
+.no-image{
+    width: 30px;
+  height: 30px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin:80px 130px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -16,38 +16,49 @@ import TextField from '@mui/material/TextField';
 function HelperTextMisaligned() {
     const [loginEmail,setLoginEmail]=useState("");
     const [loginPassword,setLoginPassword]=useState("");
+
      const [SuccessModal,setSuccessModal]=useState(false);
      const [loginLoading,setLoginLoading]=useState(false);
+
      const [loginError,setLoginError]=useState("")
      const {login}=useAuth();
+     const {Me}=useAuth();
+     const navigate=useNavigate()
     //  const [setSelected]=useState(localStorage.getItem("userRole")||"")
     //  const [selected,setSelected]=useState("")
     //  const navigate=useNavigate();
      
     async function Login(e){
     e.preventDefault();
+    if(loginLoading) return;
     setLoginLoading(true);
     setLoginError("")
 
     try{
         const session=await login(
-            loginEmail,loginPassword
+            loginEmail.trim(),loginPassword
         );
+       
+        await Me("session.access_token")
         console.log("login successful",session);
-        
+        setSuccessModal(true);
         setTimeout(()=>{
-            if(setLoginPassword!==loginPassword && session.user?.profile_type==="Homeowner"){
+            
+            if( session.user?.profile_type==="Homeowner"){
                 // navigate("provider/Provider");
-                window.location.href="provider/Provider"
-            }else if(setLoginPassword!==loginPassword && session.user?.profile_type==="renter"){
+                // window.location.href="provider/Provider"
+                navigate("provider/Provider")
+            }else if( session.user?.profile_type==="renter"){
                 // 
-                window.location.href="/Home"
+                // window.location.href="/Home"
+                navigate("/Home")
             }else {
                 // navigate("/")
                 window.location.href="/"
             }
-             setSuccessModal(true);
+              
         },1500)
+       
     }catch(error){
        console.log("LOGIN ERROR OBJECT:", error);
         console.log("LOGIN ERROR MESSAGE:", error.message);
@@ -106,7 +117,7 @@ function HelperTextMisaligned() {
 
         "& .MuiInputBase-input:-webkit-autofill": {
             WebkitBoxShadow: "0 0 0 100px transparent inset",
-            WebkitTextFillColor: "#fff",
+            WebkitTextFillColor: "#2d2c2c",
         },
     }}
     />
@@ -131,7 +142,7 @@ function HelperTextMisaligned() {
 
         "& .MuiInputBase-input:-webkit-autofill": {
             WebkitBoxShadow: "0 0 0 100px transparent inset",
-            WebkitTextFillColor: "#fff",
+            WebkitTextFillColor: "#2d2c2c",
         },
     }}
     />
@@ -186,13 +197,16 @@ export default function Signup(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const [fullname,setFullName]=useState("");
     const [selected,setSelected]=useState(localStorage.getItem("userRole")|| "");
+
     const [error, setError] = useState({});
     const [createpassword,setCreatepassword]=useState('');
+
     const [authmode,setAuthmode]=useState("create_account");
     const [successModal,setSuccessModal]=useState(false)
-    
+    const [loginLoading,setLoginLoading]=useState(false);
     const navigate=useNavigate();
 //     const {
 //     user,
@@ -205,11 +219,12 @@ export default function Signup(){
     async function Register(e) {
 
         e.preventDefault();
-
+        if(loginLoading) return;
        if(createpassword!==password){
         setError({
             createpassword:"Password do not match"
         })
+        return;
        }
         
 
@@ -226,10 +241,10 @@ export default function Signup(){
 
                     body: JSON.stringify({
                         id:Date.now(),
-                        email: email,
+                        email: email.trim(),
                         createpassword:createpassword,
                         password: password,
-                        full_name:fullname,
+                        full_name:fullname.trim(),
                         profile_type:selected.toLowerCase()
                     })
                 }
@@ -238,17 +253,27 @@ export default function Signup(){
 
             const data = await response.json();
 
-
-            if (!response.ok) {
-
+            
+                if (!response.ok) {
+                if(response.status==409){
+                    setError({email:<p style={{fontSize:"12px",display:"block",width:"200px",color:"#bd4242"}}>This email already used</p>});
+                    return;
+                }
                 setError(data.fields || {general:data.message});
 
                 return;
             }
-          
+            
+            
+         
            setTimeout(()=>{
-             setSuccessModal(true);
-             navigate("/")
+             
+             
+             if(selected==="Homeowner"){
+                navigate("provider/Provider")
+             }else if(selected==="renter"){
+                navigate("/Home")
+             }
              if(createpassword!==password){
                 alert("password does not match! please try again")
               return;
@@ -257,8 +282,9 @@ export default function Signup(){
                 "Login successful",
                 data
             );
-
+            setSuccessModal(true);
            },3000)
+            
             // if(selected==="Homeowner"){
             //     navigate("/provider/Provider");
             // }else if(selected==="renter"){
@@ -280,6 +306,8 @@ export default function Signup(){
                 err
             );
 
+        }finally{
+            setLoginLoading(false)
         }
     }
     // usersignup//
@@ -303,7 +331,7 @@ export default function Signup(){
             AT<span>LandTip</span>
         </div>
 
-        <h1>
+        <h1 style={{color:"white"}}>
             Find Your Place
             <br />
             to Call Home
@@ -359,7 +387,7 @@ export default function Signup(){
                 <div className="form-motion">
 
                     <div>
-                <p style={{fontFamily:"sans-serif",paddingTop:"10px",marginLeft:"60px"}}>I'm a...</p>
+                <p style={{fontFamily:"sans-serif",paddingTop:"2px",marginLeft:"60px"}}>I'm a...</p>
             </div>
         <div className="option">
             
@@ -370,9 +398,10 @@ export default function Signup(){
                 <div className='icon1'>
                 <User size={24} />
                 </div>
+                <div className="hs">
                  <h3>အိမ်ရှာဖွေသူ</h3>
                  <p>I'm looking for a place to live</p>
-                
+                </div>
             </div>
             
             <div onClick={()=>{setSelected("Homeowner");console.log("Homeowner")}} className={selected=="Homeowner"?"selected":""} className="provider">
@@ -382,8 +411,10 @@ export default function Signup(){
                 <div className='icon2'>
                 <Building2 size={24} />
                 </div>
+                <div className="hs">
                 <h3>အိမ်ခန်း သို့မဟုတ် အိမ်ပြပေးသူ</h3>
                 <p>I want to list and rent out my property</p>
+                </div>
             </div>
                
         </div> 
@@ -392,7 +423,7 @@ export default function Signup(){
          {/* divider div */}
             <div className="divider">
                 <div className="line"></div>
-                 <span>or continue with</span>
+                 <span>Create account with</span>
                  <div className="line"></div>
             </div>
             {/* divider div */}
@@ -401,13 +432,13 @@ export default function Signup(){
                 <div>
                     <button className="gbtn1">
                         <GoogleIcon style={{width:"22px",height:'22px',}}/>
-                        <span style={{marginTop:"3px"}}>Continus with google</span>
+                        <span style={{marginTop:"3px"}}>Continue with google</span>
                     </button>
                 </div>
                 <div>
                     <button className="gbtn2">
                         <FacebookIcon style={{width:"22px",height:'22px'}}/>
-                        <span style={{marginTop:"3px"}}>Continus with facebook</span>
+                        <span style={{marginTop:"3px"}}>Continue with facebook</span>
                     </button>
                 </div>
             </div>
@@ -415,7 +446,7 @@ export default function Signup(){
 
             <div className="divider">
                 <div className="line"></div>
-                 <span>or</span>
+                 <span>or continue with</span>
                  <div className="line"></div>
             </div>
                 

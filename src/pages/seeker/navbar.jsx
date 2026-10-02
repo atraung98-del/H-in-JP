@@ -3,22 +3,15 @@ import {NavLink} from "react-router-dom";
 import { useAuth } from "../../authcontext/AuthContext";
 
 
-
+import UserProfileMenu from "./user_profile";
 
 
 export default function Nav(){
-    const {user,logout}=useAuth();
+
+    const {user}=useAuth();
     console.log("current user",user)
-    async function handleLogout(){
     
-    try{
-            await logout();
-            window.location.href="/";
-    }catch(error){
-            console.error("logout failed"),
-            error;
-    }
-}
+    
     return(
         <div className="navbar2">
             
@@ -34,12 +27,27 @@ export default function Nav(){
                     <button>Favorites</button>
                     <button>Messages</button>
                     <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/">Be a provider</NavLink>
-                    <div>
-                        {user && (<span style={{color:"white"}}>
-                            {user.profile?.full_name || user.full_name || user.email}
-                        </span>)}
+                    
+                    <div style={{marginTop:"15px"}}>
+                        <UserProfileMenu/>
+                       
+                        {/* <UserProfileMenu/> */}
+                      
+
+    {/* <span>
+        {user?.profile?.full_name || user?.email || "Guest"}
+    </span>
+
+    <ChevronDown size={16} /> */}
+                        {/* {user && (<span style={{color:"white"}}>
+                            {use?.profile?.full_name }
+                        </span>)} */}
                     </div>
-                    <button type="button" onClick={handleLogout} style={{backgroundColor:"rgb(219, 6, 73)",width:"100px",height:"30px",marginTop:"20px",marginLeft:"90px",borderRadius:"2px",border:"none"}}>Log out</button>
+                    
+                    <p style={{display:"block",backgroundColor:"#1f7fe6",width:"90px",height:"30px",textAlign:"center",marginTop:"20px"
+                        ,fontSize:"14px",color:"white",borderRadius:"20px"
+                    }}>အိမ်ရှာဖွေသူ</p>
+                    
                 </div>
             </div>
             

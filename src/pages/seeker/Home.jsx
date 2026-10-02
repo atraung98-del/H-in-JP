@@ -1,5 +1,6 @@
 // station//
 import Select from "react-select";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 // import { useTheme } from "../../usetheme";
 // import InputLabel from '@mui/material/InputLabel';
 // import MenuItem from '@mui/material/MenuItem';
@@ -127,18 +128,18 @@ const filterstaton=prodata.filter((item)=>(
     
     
 ))
-        if(loading)return(<p>loading...</p>);
+        if(loading)return(<p className="loadingpage">loading...</p>);
     return(
         <div className="main_div">
             {/* <button onClick={toggleTheme}>
                 {theme==="light"? "🌙dark":" ☀️light"}
             </button> */}
         <Nav/>
-        <h2 style={{marginLeft:"10px"
+        <h2 style={{textAlign:"center",color:"white",marginTop:"10px"
         }}>Find Your Perfect Home <br></br>in Japan</h2>
         
         <div style={{position:"relative",margin:"10px",display:"flex",flexDirection:"row",gap:"5px",
-            
+            justifyContent:"center"
             
         }} >
               <input type="text" placeholder="Search nearest stations" 
@@ -174,7 +175,7 @@ const filterstaton=prodata.filter((item)=>(
         
     )}
     </div>
-    <div style={{marginLeft:"10px",position:"absolute"}}>
+    <div style={{textAlign:"center",marginLeft:"40%",position:"absolute",color:"white"}}>
         <h3>Popular areas</h3>
     <ClickableChips/>
     </div>

@@ -57,6 +57,29 @@ export function AuthProvider({children}){
             setAccessToken(null);
         }
     }
+    async function Me(Token =accessToken){
+        if(!Token){
+            console.log("No access token");
+            return null;
+        }
+        try{
+           const res= await fetch(`${API_Base}/me`,
+            {
+                method:"GET",
+                credentials:"include",
+                headers:{
+                    Authorization:`Bearer ${Token}`,
+                }
+                
+           })
+            const data=await res.json();
+            console.log("current user",data)
+        }catch(error){
+            console.error("user",error)
+            setUser(null);
+            return null;
+        }
+    }
     async function refreshSession(){
 
         try{
@@ -97,6 +120,7 @@ export function AuthProvider({children}){
         loading,
         login,
         logout,
+        Me,
         refreshSession
     };
     return(

@@ -5,6 +5,34 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import "../design.css"
 import Nav from "./navbar";
 import {useState,useEffect} from "react";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
+// image resolve//
+const API_ORIGIN = "http://localhost:8080";
+
+function getImageUrl(url) {
+    if (!url) {
+        return null;
+    }
+
+    // If backend already gives a complete URL
+    if (
+        url.startsWith("http://") ||
+        url.startsWith("https://")
+    ) {
+        return url;
+    }
+
+    // If backend gives /uploads/...
+    if (url.startsWith("/")) {
+        return `${API_ORIGIN}${url}`;
+    }
+
+    // If backend gives uploads/...
+    return `${API_ORIGIN}/${url}`;
+}
+// image resolve//
 const station=[
   { value: "tokyo", label: "🚉 Tokyo Station" },
   { value: "shinjuku", label: "🚉 Shinjuku Station" },
@@ -38,7 +66,7 @@ export function SearchRoom() {
         async function roomData() {
             try {
                 const response = await fetch(
-                    "http://localhost:8080/api/rooms"
+                    `http://localhost:8080/api/rooms`
                 );
 
                 const result = await response.json();
@@ -99,42 +127,151 @@ export function SearchRoom() {
     }
 
     return (
-        <div className="room-list" style={{overflowY:"scroll",height:"400px"}}>
+       <div className="room-list">
 
-            <h3>
-                Available Rooms ({RoomData.length})
-            </h3>
+    <div className="room-list-header">
+        <h3>
+            လက်ရှိရရှိနိင်သော အိမ်ခန်းများ
+        </h3>
 
-            {RoomData.length === 0 ? (
-                <p>No rooms available.</p>
-            ) : (
+        <span>
+            {RoomData.length} rooms
+        </span>
+    </div>
 
-                RoomData.map((room) => (
-                    <div
-                        className="room-card"
-                       
-                        key={room.id}
-                    >
-                        <div  >
-                        <h3 style={{color:"white"}}>{room.title}</h3>
 
-                        <p style={{color:"red"}}>
-                            {room.status}
-                            ¥{room.price_amount}
-                            {room.description}
-                            {room.deposit_amount}
-                            {room.avaliable_from}
-                        </p>
-                        <img src=
-                        {`http://localhost:8080${room.cover_photo?.thumb_url}`}/>
-                        
-                        </div>
+    {RoomData.length === 0 ? (
+
+        <div className="no-rooms">
+            <p className="np-rooms">hi</p>
+        </div>
+
+    ) : (
+
+        <div className="room-grid">
+            
+            {RoomData.map((room) => (
+
+                <div
+                    className="room-card"
+                    key={room.id}
+                >
+
+                    {/* IMAGE */}
+                    
+                    <div className="room-image">
+
+                        {room.original_filename ? (
+
+                            <img
+    src={getImageUrl(room.cover_photo?.thumb_url)}
+    alt={room.title}
+    // src={room.room.cover_photo.thumb_url}
+    onError={(e) => {
+        console.error(
+            "IMAGE FAILED:",
+            e.currentTarget.src
+        );
+    }}
+/>
+
+                        ) : (
+                            
+                            <div className="no-image">
+                               
+                                
+                            </div>
+                            
+                        )}
+                         <p className="no-image1">
+                                    Loading image
+                                </p>
+                        <button
+                            type="button"
+                            className="favorite-btn"
+                        >
+                            ♡
+                        </button>
+
                     </div>
-                ))
 
-            )}
+
+                    {/* CONTENT */}
+                    <div className="room-content">
+
+                        <h3 className="room-title">
+                            {room.title}
+                        </h3>
+
+
+                        <p className="room-location">
+                            <Stack direction="row" spacing={0} >
+      <Chip icon={<LocationOnIcon style={{fontSize:"20px",color:"#e91e63"}}/>} variant='outline'label= {room.city || "Japan"} style={{border:"1px solid white",color:"black"}}/>
+      
+    
+    </Stack> 
+                        </p>
+
+
+                        <div className="room-price">
+
+                            ¥{Number(
+                                room.price_amount || 0
+                            ).toLocaleString()}
+
+                            <span>
+                                / {room.price_period || "month"}
+                            </span>
+
+                        </div>
+
+
+                        <div className="room-info">
+
+                            <span>
+                                {room.room_type || "Room"}
+                            </span>
+
+                            <span>
+                                {room.bed_count || 1} bed
+                            </span>
+
+                            <span>
+                                {room.bathroom_type || "Bathroom"}
+                            </span>
+                            <span>
+                                {room.deposit_amount||"Deposit amount"}
+                            </span>
+                            
+                        </div>
+
+
+                        {room.description && (
+                            <p className="room-description">
+                                {room.description}
+                            </p>
+                        )}
+
+
+                        <button
+                            type="button"
+                            className="view-room-btn"
+                        >
+                            View Room
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            ))}
 
         </div>
+
+    )}
+
+</div>
     );
 }
 // ///
