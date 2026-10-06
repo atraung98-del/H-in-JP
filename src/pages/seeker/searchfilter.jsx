@@ -131,7 +131,7 @@ export function SearchRoom() {
 
     <div className="room-list-header">
         <h3>
-            လက်ရှိရရှိနိင်သော အိမ်ခန်းများ
+            Avaliable rooms
         </h3>
 
         <span>

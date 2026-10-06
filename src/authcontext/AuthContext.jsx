@@ -11,33 +11,57 @@ export function AuthProvider({children}){
     const [loading,setLoading]=useState(true);
 
 
-    async function login(email,password){
+    async function login(email, password) {
 
-        const res=await fetch(`${API_Base}/auth/login`,
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/Json"
-                },
-                credentials:"include",
-                body:JSON.stringify({email,password})
-            }
-        );
-        const Data=await res.json();
-        if(!res.ok){
-            throw new Error(
-                Data.error?.message||
-                Data.message||
-                "Login failed"
-            );
-        }
-        const session=Data.data||Data;
-        setAccessToken(session.access_token);
-        setUser(
-            session.user
-        );
-        return session;
+  const response = await fetch(
+    `${API_Base}/auth/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error?.message ||
+      data?.message ||
+      "Login failed"
+    );
+  }
+
+  const session = data.data || data;
+
+  // Save token
+  setAccessToken(session.access_token);
+
+  // Get complete user/profile
+  const token = session.access_token;
+
+console.log("ACTUAL ACCESS TOKEN:", token);
+
+setAccessToken(token);
+
+const currentUser = await Me(token);
+
+console.log("FULL CURRENT USER:", currentUser);
+
+setUser(currentUser);
+
+
+  return {
+    ...session,
+    user: currentUser,
+  };
+}
     async function logout(){
 
         try{
@@ -57,63 +81,105 @@ export function AuthProvider({children}){
             setAccessToken(null);
         }
     }
-    async function Me(Token =accessToken){
-        if(!Token){
-            console.log("No access token");
-            return null;
-        }
-        try{
-           const res= await fetch(`${API_Base}/me`,
-            {
-                method:"GET",
-                credentials:"include",
-                headers:{
-                    Authorization:`Bearer ${Token}`,
-                }
-                
-           })
-            const data=await res.json();
-            console.log("current user",data)
-        }catch(error){
-            console.error("user",error)
-            setUser(null);
-            return null;
-        }
-    }
-    async function refreshSession(){
+  async function Me(token) {
 
-        try{
-            const response=await fetch (`${API_Base}/auth/refresh`,
-                {
-                    method:"POST",
-                    credentials:"include"
-                }
-            );
-            if(!response.ok){
-                setUser(null);
-                setAccessToken(null);
-                return (null);
-            }
-            const data=await response.json();
-            const session=data.data||data;
-            setAccessToken(
-                session.access_token
-            );
-            setUser(
-                session.user
-            );
-            return session;
-        }catch(error){
-            console.error("Refresh session error:",error);
-            setUser(null);
-            setAccessToken(null);
-        }finally{
-            setLoading(false)
-        }
+  console.log("TOKEN SENT TO /me:", token);
+
+  const response = await fetch(
+    `${API_Base}/me`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
     }
-    useEffect(()=>{
-        refreshSession();
-    },[]);
+  );
+
+  const data = await response.json();
+
+  console.log("ME RESPONSE:", data);
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error?.message ||
+      data?.message ||
+      "Failed to get current user"
+    );
+  }
+
+  return data.data || data;
+}
+
+    async function refreshSession() {
+
+  try {
+
+    const response = await fetch(
+      `${API_Base}/auth/refresh`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      setUser(null);
+      setAccessToken(null);
+      return null;
+    }
+
+    const data =
+      await response.json();
+
+    const session =
+      data.data || data;
+
+    setAccessToken(
+      session.access_token
+    );
+
+    // Get full profile/name
+    const currentUser =
+      await Me(
+        session.access_token
+      );
+
+    console.log(
+      "RESTORED USER:",
+      currentUser
+    );
+
+    setUser(currentUser);
+
+    return {
+      ...session,
+      user: currentUser,
+    };
+
+  } catch (error) {
+
+    console.error(
+      "REFRESH ERROR:",
+      error
+    );
+
+    setUser(null);
+    setAccessToken(null);
+
+    return null;
+
+  } finally {
+
+    setLoading(false);
+
+  }
+}
+useEffect(() => {
+  refreshSession();
+}, []);
+
+
     const values={
         user,
         accessToken,

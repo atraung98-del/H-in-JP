@@ -22,57 +22,65 @@ function HelperTextMisaligned() {
 
      const [loginError,setLoginError]=useState("")
      const {login}=useAuth();
-     const {Me}=useAuth();
+     
      const navigate=useNavigate()
     //  const [setSelected]=useState(localStorage.getItem("userRole")||"")
     //  const [selected,setSelected]=useState("")
     //  const navigate=useNavigate();
      
-    async function Login(e){
-    e.preventDefault();
-    if(loginLoading) return;
-    setLoginLoading(true);
-    setLoginError("")
+    async function Login(e) {
+  e.preventDefault();
 
-    try{
-        const session=await login(
-            loginEmail.trim(),loginPassword
-        );
-       
-        await Me("session.access_token")
-        console.log("login successful",session);
-        setSuccessModal(true);
-        setTimeout(()=>{
-            
-            if( session.user?.profile_type==="Homeowner"){
-                // navigate("provider/Provider");
-                // window.location.href="provider/Provider"
-                navigate("provider/Provider")
-            }else if( session.user?.profile_type==="renter"){
-                // 
-                // window.location.href="/Home"
-                navigate("/Home")
-            }else {
-                // navigate("/")
-                window.location.href="/"
-            }
-              
-        },1500)
-       
-    }catch(error){
-       console.log("LOGIN ERROR OBJECT:", error);
-        console.log("LOGIN ERROR MESSAGE:", error.message);
-        setLoginError(
-            error.message ||
-            "Email or Password is incorrect ! Please try agian"
-        );
-        setTimeout(() => {
-            setLoginError("");
-        }, 3000);
+  if (loginLoading) return;
 
-    }finally{
-        setLoginLoading(false);
-    }
+  setLoginLoading(true);
+  setLoginError("");
+
+  try {
+    const session = await login(
+      loginEmail,
+      loginPassword
+    );
+
+    console.log("LOGIN SUCCESS:", session);
+    console.log("LOGGED USER:", session.user);
+
+    setSuccessModal(true);
+
+    setTimeout(() => {
+      if (
+        session.user?.profile_type === "homeowner"
+      ) {
+        navigate("/provider/Provider");
+      } else if (
+        session.user?.profile_type === "renter"
+      ) {
+        navigate("/Home");
+      } else {
+        navigate("/");
+      }
+    }, 1500);
+
+  } catch (error) {
+    console.log(
+      "LOGIN ERROR OBJECT:",
+      error
+    );
+
+    console.log(
+      "LOGIN ERROR MESSAGE:",
+      error.message
+    );
+
+    setLoginError(
+      error.message ||
+      "Email or password is incorrect!"
+    );
+
+  } finally {
+    setLoginLoading(false);
+  }
+
    
 
 }
@@ -166,7 +174,7 @@ function HelperTextMisaligned() {
                 ✓
             </div>
 
-            <h2>Welcome back {User}</h2>
+            <h2>Welcome back {user?.profile?.full_name || user?.full_name || user?.email}</h2>
 
             <p>
                  Welcome to{" "}

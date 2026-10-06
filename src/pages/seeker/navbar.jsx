@@ -7,12 +7,15 @@ import UserProfileMenu from "./user_profile";
 
 
 export default function Nav(){
-
+ 
     const {user}=useAuth();
+    
     console.log("current user",user)
+  
     
     
     return(
+        <>
         <div className="navbar2">
             
             <div className="navbar1">
@@ -44,13 +47,12 @@ export default function Nav(){
                         </span>)} */}
                     </div>
                     
-                    <p style={{display:"block",backgroundColor:"#1f7fe6",width:"90px",height:"30px",textAlign:"center",marginTop:"20px"
-                        ,fontSize:"14px",color:"white",borderRadius:"20px"
-                    }}>အိမ်ရှာဖွေသူ</p>
+                    
                     
                 </div>
             </div>
             
          </div>
+         </>
     )
 }

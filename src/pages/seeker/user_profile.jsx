@@ -24,7 +24,7 @@ export default function UserProfileMenu() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const { user, logout } = useAuth();
+  const { user, logout ,loading} = useAuth();
 
   const navigate = useNavigate();
 
@@ -67,9 +67,8 @@ export default function UserProfileMenu() {
 
   const fullName =
     user?.profile?.full_name ||
-    user?.full_name ||
-    user?.email ||
-    "Guest";
+      user?.full_name ||
+      "";
 
 
   return (
@@ -83,7 +82,9 @@ export default function UserProfileMenu() {
           gap: "8px",
           borderRadius: "10px",
           padding: "6px 10px",
+          
         }}
+        style={{backgroundColor:"#e9e6e6"}}
       >
 
         <Avatar
@@ -100,7 +101,7 @@ export default function UserProfileMenu() {
 
         <Typography
           sx={{
-            color: "#172033",
+            color: "#484848",
             fontSize: "14px",
             fontWeight: 500,
             
@@ -118,16 +119,40 @@ export default function UserProfileMenu() {
         onClose={handleClose}
       >
           
-        <MenuItem onClick={handleProfile}>
+        <MenuItem onClick={handleProfile} >
 
           <ListItemIcon>
             <Person fontSize="small" />
           </ListItemIcon>
 
           My Profile
+           
 
         </MenuItem>
 
+        <MenuItem>
+         <p
+  style={{
+    display: "block",
+    background: "#38acfa",
+    minWidth: "70px",
+    height: "20px",
+    textAlign: "center",
+    fontSize: "12px",
+    color: "white",
+    borderRadius: "20px",
+    marginLeft: "40px",
+    lineHeight: "20px",
+  }}
+>
+  {loading
+    ? "Loading..."
+    : user?.profile?.profile_type ||
+      user?.profile_type ||
+      ""}
+</p>
+        </MenuItem>
+         
 
         <MenuItem onClick={handleSettings}>
 
