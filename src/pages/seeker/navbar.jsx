@@ -1,8 +1,8 @@
 import "../design.css";
 import {NavLink} from "react-router-dom";
 import { useAuth } from "../../authcontext/AuthContext";
-
-
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UserProfileMenu from "./user_profile";
 
 
@@ -27,9 +27,9 @@ export default function Nav(){
                   </nav>
                 </div>
                 <div className="favmes">
-                    <button>Favorites</button>
-                    <button>Messages</button>
-                    <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/">Be a provider</NavLink>
+                    <button style={{fontSize:"10px",fontFamily:"unset"}}><CollectionsBookmarkIcon style={{color:"#39a3fa",outLine:"none"}}/><br></br>Favourite</button>
+                    <button style={{fontSize:"10px",fontFamily:"unset"}}><ChatBubbleIcon style={{color:"#39a3fa",outLine:"none"}}/><br></br>Message</button>
+                    <NavLink className={({isActive})=>isActive?"nav-link":"active-link"} to="/" id="be_provider">Be a provider</NavLink>
                     
                     <div style={{marginTop:"15px"}}>
                         <UserProfileMenu/>

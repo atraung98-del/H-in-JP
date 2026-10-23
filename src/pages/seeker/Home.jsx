@@ -1,6 +1,7 @@
 // station//
 import Select from "react-select";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+// import LocationOnIcon from '@mui/icons-material/LocationOn';
 // import { useTheme } from "../../usetheme";
 // import InputLabel from '@mui/material/InputLabel';
 // import MenuItem from '@mui/material/MenuItem';
@@ -57,6 +58,7 @@ export default function Homepage(){
         const [loading,setLoading]=useState(true);
         const [selectedStation,setSelectedStation]=useState("")
         const [search,setSearch]=useState("")
+      
         // const {theme,toggleTheme}=useTheme()
        
         // useEffect(()=>{
@@ -128,7 +130,10 @@ const filterstaton=prodata.filter((item)=>(
     
     
 ))
-        if(loading)return(<p className="loadingpage">loading...</p>);
+         
+
+        if(loading)return(<p className="loadingpage">Hi</p>);
+         
     return(
         <div className="main_div">
             {/* <button onClick={toggleTheme}>

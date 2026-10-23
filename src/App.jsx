@@ -15,12 +15,14 @@ import Homepage from './pages/seeker/Home';
 
 function App() {
      
+     
  return(
       <BrowserRouter>
       
           <Routes>
                
                <Route path="/" element={<Signup/>}/>
+               
                <Route path="/Home" element={<Homepage/>}/>
                <Route path="/searchfilter" element={<Searchfilter/>}/>
                <Route path="/saved" element={<Saved/>}/>

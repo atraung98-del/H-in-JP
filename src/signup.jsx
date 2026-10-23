@@ -31,7 +31,7 @@ function HelperTextMisaligned() {
     async function Login(e) {
   e.preventDefault();
 
-  if (loginLoading) return;
+//   if (loginLoading) return;
 
   setLoginLoading(true);
   setLoginError("");
@@ -48,6 +48,7 @@ function HelperTextMisaligned() {
     setSuccessModal(true);
 
     setTimeout(() => {
+        //  refreshSession(true)
       if (
         session.user?.profile_type === "homeowner"
       ) {
@@ -56,6 +57,7 @@ function HelperTextMisaligned() {
         session.user?.profile_type === "renter"
       ) {
         navigate("/Home");
+       
       } else {
         navigate("/");
       }
@@ -174,7 +176,7 @@ function HelperTextMisaligned() {
                 ✓
             </div>
 
-            <h2>Welcome back {user?.profile?.full_name || user?.full_name || user?.email}</h2>
+            <h2>Welcome back {User}</h2>
 
             <p>
                  Welcome to{" "}
@@ -273,7 +275,7 @@ export default function Signup(){
             }
             
             
-         
+           setSuccessModal(true);
            setTimeout(()=>{
              
              
@@ -290,7 +292,7 @@ export default function Signup(){
                 "Login successful",
                 data
             );
-            setSuccessModal(true);
+          
            },3000)
             
             // if(selected==="Homeowner"){

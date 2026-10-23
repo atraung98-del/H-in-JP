@@ -2,6 +2,7 @@ import "../design.css"
 import { NavLink } from "react-router";
 import { useAuth } from "../../authcontext/AuthContext";
 import { useNavigate } from "react-router";
+import LogoutIcon from '@mui/icons-material/Logout';
 export default function ProviderNav(){
     const {logout}=useAuth();
     const navigate=useNavigate();
@@ -29,7 +30,7 @@ export default function ProviderNav(){
                      <NavLink className={({isActive})=>isActive?"nav-link":"active-link"}className="prov" to="/provider/Provider/Uploads">Upload</NavLink>
                      <NavLink className={({isActive})=>isActive?"nav-link":"active-link"}className="prov" to="/provider/Provider/Messages">Messages</NavLink>
                      <NavLink className={({isActive})=>isActive?"nav-link":"active-link"}className="prov" to="/provider/Provider/Settings">Settings</NavLink>
-                     <button type="button" onClick={handleLogout}>Log out</button>
+                     <button type="button" className="Logout_btn" onClick={handleLogout}><LogoutIcon/>Log out</button>
 
                 </nav>
             </div>

@@ -1,5 +1,5 @@
 import {createContext,useContext,useEffect,useState} from "react";
-
+import axios from "axios"
 const AuthContext=createContext();
 
 const API_Base="http://localhost:8080/api";
@@ -41,7 +41,7 @@ export function AuthProvider({children}){
   const session = data.data || data;
 
   // Save token
-  setAccessToken(session.access_token);
+  // setAccessToken(session.access_token);
 
   // Get complete user/profile
   const token = session.access_token;
@@ -111,72 +111,53 @@ setUser(currentUser);
   return data.data || data;
 }
 
-    async function refreshSession() {
-
+    const refreshSession = async () => {
   try {
-
-    const response = await fetch(
-      `${API_Base}/auth/refresh`,
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/refresh",
+      {},
       {
-        method: "POST",
-        credentials: "include",
+        withCredentials: true,
       }
     );
 
-    if (!response.ok) {
-      setUser(null);
-      setAccessToken(null);
-      return null;
-    }
+    const token = response.data.access_token;
 
-    const data =
-      await response.json();
+    setAccessToken(token);
 
-    const session =
-      data.data || data;
-
-    setAccessToken(
-      session.access_token
+    const meResponse = await axios.get(
+      "http://localhost:8080/api/me",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
     );
 
-    // Get full profile/name
-    const currentUser =
-      await Me(
-        session.access_token
-      );
+    setUser(meResponse.data);
 
-    console.log(
-      "RESTORED USER:",
-      currentUser
-    );
-
-    setUser(currentUser);
-
-    return {
-      ...session,
-      user: currentUser,
-    };
+    return meResponse.data;
 
   } catch (error) {
+    console.log("Refresh failed:", error);
 
-    console.error(
-      "REFRESH ERROR:",
-      error
-    );
-
-    setUser(null);
     setAccessToken(null);
+    setUser(null);
 
-    return null;
-
-  } finally {
-
-    setLoading(false);
-
+    throw error;
   }
-}
+};
 useEffect(() => {
-  refreshSession();
+  const initializeAuth = async () => {
+    try {
+      await refreshSession();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  initializeAuth();
 }, []);
 
 

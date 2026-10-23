@@ -107,7 +107,7 @@ export default function UserProfileMenu() {
             
           }}
         >
-          {fullName}
+          {user?.profile_name?.full_name?.email|| "Aung Thura"}
         </Typography>
           <ArrowDropDownIcon/>
       </IconButton>

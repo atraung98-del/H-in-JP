@@ -61,7 +61,7 @@ export function SearchRoom() {
     const [RoomData, setRoomdata] = useState([]);
     const [load, setLoad] = useState(true);
     const [error, setError] = useState("");
-
+    const [SelectHome,setSelectHome]=useState(null);
     useEffect(() => {
         async function roomData() {
             try {
@@ -155,6 +155,11 @@ export function SearchRoom() {
                 <div
                     className="room-card"
                     key={room.id}
+                    onClick={(e) => {
+    e.stopPropagation();
+    setSelectHome(room);
+  }}
+                    
                 >
 
                     {/* IMAGE */}
@@ -256,6 +261,9 @@ export function SearchRoom() {
                         <button
                             type="button"
                             className="view-room-btn"
+                            onClick={(e)=>{
+                                e.stopPropagation();
+                                setSelectHome(room);}}
                         >
                             View Room
                             <span>→</span>
@@ -270,7 +278,69 @@ export function SearchRoom() {
         </div>
 
     )}
+    {/* I code this for room data details viewing code. */}
+    {SelectHome && (
+        <div className="home-detail">
+          <button onClick={() => setSelectHome(null)}>
+            ← Back to homes
+          </button>
 
+          <h2>{SelectHome.title||"Room Details"}</h2>
+          <img
+      src={getImageUrl(SelectHome.cover_photo?.thumb_url)}
+      alt={SelectHome.title || "Room"}
+      onError={(e) => {
+        e.currentTarget.style.display = "none";
+      }}
+      style={{
+        width: "100%",
+        maxWidth: "500px",
+        height: "300px",
+        objectFit: "cover",
+        borderRadius: "12px",
+      }}
+    />
+
+          <h3>
+      ¥{Number(
+        SelectHome.price_amount || 0
+      ).toLocaleString()} / {SelectHome.price_period || "month"}
+    </h3>
+
+    <p>
+      <strong>Address:</strong>{" "}
+      {SelectHome.address || SelectHome.city || "Not provided"}
+    </p>
+
+    <p>
+      <strong>City:</strong> {SelectHome.city || "Not provided"}
+    </p>
+
+    <p>
+      <strong>Room type:</strong> {SelectHome.room_type || "Not provided"}
+    </p>
+
+    <p>
+      <strong>Bedrooms:</strong> {SelectHome.bed_count ?? "Not provided"}
+    </p>
+
+    <p>
+      <strong>Bathroom:</strong> {SelectHome.bathroom_type || "Not provided"}
+    </p>
+
+    <p>
+      <strong>Deposit:</strong> ¥{Number(
+        SelectHome.deposit_amount || 0
+      ).toLocaleString()}
+    </p>
+
+    <p>
+      <strong>Description:</strong>{" "}
+      {SelectHome.description || "No description available."}
+    </p>
+  </div>
+)}
+ {/* I code this for room data details viewing code. */}
 </div>
     );
 }
@@ -325,6 +395,7 @@ export default function Searchfilter(){
     
     <div className="side">
         <Nav/>
+        <div className="redesign">
     <div className="options">
         
                 <Selectstation/>
@@ -361,9 +432,10 @@ export default function Searchfilter(){
                 </div>
                  
                </div>
-                
-              <SearchRoom/>
+                <SearchRoom/>
+              
             
+            </div>
             </div>
             {/* <LeafletMap/> */}
         </div>    
